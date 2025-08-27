@@ -3,25 +3,30 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies
-RUN apt-get update && apt-get install -y gcc g++ curl && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc g++ curl && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy and install requirements
-COPY backend/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy requirements first for better caching
+COPY backend/requirements.txt requirements.txt
 
-# Copy application
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Copy backend code
 COPY backend/ .
 
-# Create directories
+# Create necessary directories
 RUN mkdir -p /app/logs /app/data
 
-# Environment
+# Set environment variables
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-# Port
+# Railway uses PORT environment variable
 EXPOSE 8000
 
-# Start app
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
+# Start the application with proper PORT binding
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
