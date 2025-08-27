@@ -1,0 +1,25 @@
+# Task ID: 8
+# Title: Build Pine Script execution engine
+# Status: pending
+# Dependencies: 7
+# Priority: medium
+# Description: Implement Pine Script parser and strategy execution engine
+# Details:
+Create Pine Script language parser for basic syntax, implement strategy signal generation from Pine Script code, build backtesting engine for historical data validation, add support for custom indicators and functions, create strategy performance metrics calculation, implement strategy state management and persistence
+
+# Test Strategy:
+Test with sample Pine Script strategies, verify signal generation accuracy, compare backtest results with TradingView
+
+# Subtasks:
+## 1. Build Pine Script parser and converter [pending]
+### Dependencies: None
+### Description: Create Pine Script parser to convert Pine Script code into executable Python strategies
+### Details:
+Build Pine Script AST parser, implement strategy execution engine, support for common indicators (RSI, MACD, Bollinger Bands), entry/exit logic conversion
+
+## 2. Create strategy parameter optimization interface [pending]
+### Dependencies: None
+### Description: Implement strategy parameter extraction and optimization interface
+### Details:
+Extract optimizable parameters from Pine Script, create parameter bounds and constraints, interface with optimization engines (PSO, Bayesian, Genetic)
+

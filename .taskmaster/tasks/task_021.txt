@@ -1,0 +1,11 @@
+# Task ID: 21
+# Title: Implement multi-exchange support
+# Status: pending
+# Dependencies: 5
+# Priority: low
+# Description: Add support for multiple exchanges (Coinbase, Kraken) beyond Binance
+# Details:
+Create abstract exchange interface for common operations, implement Coinbase Pro API integration, add Kraken API support, build exchange arbitrage opportunity detection, create unified order routing system, implement cross-exchange balance management
+
+# Test Strategy:
+Test each exchange API connection, verify arbitrage detection works, confirm unified order routing functions

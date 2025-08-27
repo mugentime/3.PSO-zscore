@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: Build risk management system
+# Status: pending
+# Dependencies: 5, 12
+# Priority: high
+# Description: Implement comprehensive risk management system with position sizing and stop-loss automation
+# Details:
+Create position sizing calculator with 1-2% risk per trade limit, implement automatic stop-loss order placement, build daily loss limit monitoring with trading halt triggers, add portfolio heat calculation for total exposure, create maximum drawdown control mechanisms, implement circuit breakers for system protection
+
+# Test Strategy:
+Test position sizing stays within limits, verify stop-losses execute properly, confirm circuit breakers trigger correctly

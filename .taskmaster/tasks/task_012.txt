@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Implement dynamic hedge ratio system
+# Status: pending
+# Dependencies: 11
+# Priority: medium
+# Description: Create dynamic hedge ratio calculation system for market-neutral positioning
+# Details:
+Implement linear regression for hedge ratio calculation, add rolling volatility-based adjustments, create position sizing algorithms using Kelly Criterion, implement beta neutralization for market exposure, add transaction cost optimization, build rebalancing trigger mechanisms
+
+# Test Strategy:
+Test hedge ratios maintain market neutrality, verify position sizing follows risk limits, validate rebalancing triggers

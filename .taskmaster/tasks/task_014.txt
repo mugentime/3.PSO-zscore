@@ -1,0 +1,25 @@
+# Task ID: 14
+# Title: Set up micro capital testing phase
+# Status: pending
+# Dependencies: 13
+# Priority: high
+# Description: Implement micro capital forward testing pipeline with real money ($100-$1000)
+# Details:
+Create capital allocation system for micro testing, implement trade execution with minimal position sizes, build performance tracking against backtested expectations, add real-time P&L monitoring, create automatic stop mechanisms for capital protection, implement detailed trade logging and analysis
+
+# Test Strategy:
+Start with $100 test capital, monitor live performance correlation, verify stop-loss triggers work correctly
+
+# Subtasks:
+## 1. Implement micro capital real money testing [pending]
+### Dependencies: None
+### Description: Implement micro capital deployment system with $100-$1000 real money testing
+### Details:
+Create micro capital allocation system, implement real Binance API trading (not testnet), position sizing for micro capital, performance tracking and validation
+
+## 2. Build live vs backtest performance validation [pending]
+### Dependencies: None
+### Description: Build performance validation system to compare live results with backtested expectations
+### Details:
+Track correlation between live and backtest performance, calculate performance metrics (Sharpe, drawdown, win rate), alert system for performance deviations
+

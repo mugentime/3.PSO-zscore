@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "railway": {
+      "command": "npx",
+      "args": ["@jasontanswe/railway-mcp"],
+      "env": {
+        "RAILWAY_TOKEN": "e0ae87e0-75e3-4db6-bebe-8286df2b7a10"
+      }
+    },
+    "playwright": {
+      "command": "npx", 
+      "args": ["@playwright/mcp"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-filesystem", "C:\\Users\\je2al\\Desktop\\3.PSO-zscore"]
+    },
+    "tradingview": {
+      "command": "uv",
+      "args": ["tool", "run", "tradingview-chart-mcp"]
+    },
+    "magicui": {
+      "command": "npx",
+      "args": ["@magicuidesign/cli"]
+    },
+    "sentry": {
+      "command": "npx",
+      "args": ["@sentry/mcp-server"]
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["@browsermcp/mcp"]
+    },
+    "taskmaster": {
+      "command": "uv",
+      "args": ["tool", "run", "task-master-ai", "--project-root", "C:\\Users\\je2al\\Desktop\\3.PSO-zscore"]
+    }
+  }
+}

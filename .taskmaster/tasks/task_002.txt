@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: Configure Claude MCP tools integration
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Configure MCP tools integration for enhanced debugging and development capabilities
+# Details:
+Install and configure all MCP tools including Railway MCP server, Playwright browser automation, TradingView chart MCP, filesystem operations, and UI component generation. Create mcp-config.json for Claude Desktop integration, test all MCP connections, document available commands and usage patterns
+
+# Test Strategy:
+Verify each MCP tool responds correctly, test Railway deployment through MCP, confirm TradingView chart data retrieval works

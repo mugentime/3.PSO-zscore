@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-26T19:42:30.874331",
+  "summary": {
+    "total": 11,
+    "passed": 2,
+    "failed": 9
+  },
+  "results": {
+    "@jasontanswe/railway-mcp": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "@playwright/mcp": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "@modelcontextprotocol/server-filesystem": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "@magicuidesign/cli": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "@sentry/mcp-server": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "@browsermcp/mcp": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "tradingview-chart-mcp": "[FAIL] NOT FOUND",
+    "task-master-ai": "[FAIL] NOT FOUND",
+    "railway": "[ERROR] [WinError 2] The system cannot find the file specified",
+    "project_structure": "[OK] COMPLETE",
+    "claude_config": "[OK] 11 servers: railway-enhanced, playwright, filesystem, tradingview, taskmaster, magicui, sentry, browser, supabase, code-runner, sequential-thinking"
+  }
+}

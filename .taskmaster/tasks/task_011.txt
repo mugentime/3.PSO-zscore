@@ -1,0 +1,11 @@
+# Task ID: 11
+# Title: Build Z-score pairs trading engine
+# Status: pending
+# Dependencies: 7
+# Priority: high
+# Description: Implement Z-score calculation engine for statistical arbitrage pairs trading
+# Details:
+Build correlation matrix calculation for all trading pairs, implement cointegration testing with Augmented Dickey-Fuller test, create rolling Z-score calculation with configurable lookback windows, add spread calculation and normalization, implement mean reversion signal generation, create pairs ranking and selection algorithm
+
+# Test Strategy:
+Verify Z-score calculations with known data, test cointegration detection accuracy, validate signal generation timing

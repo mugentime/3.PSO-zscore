@@ -1,0 +1,74 @@
+{
+  "mcpServers": {
+    "railway-enhanced": {
+      "command": "npx",
+      "args": ["@jasontanswe/railway-mcp"],
+      "env": {
+        "RAILWAY_TOKEN": "e0ae87e0-75e3-4db6-bebe-8286df2b7a10"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp"],
+      "env": {
+        "PLAYWRIGHT_BROWSERS_PATH": "0"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\je2al\\Desktop\\3.PSO-zscore"
+      ]
+    },
+    "tradingview": {
+      "command": "uv",
+      "args": ["tool", "run", "tradingview-chart-mcp"]
+    },
+    "taskmaster": {
+      "command": "uv", 
+      "args": [
+        "tool", 
+        "run", 
+        "task-master-ai",
+        "--project-root",
+        "C:\\Users\\je2al\\Desktop\\3.PSO-zscore"
+      ],
+      "env": {
+        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
+        "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE"
+      }
+    },
+    "magicui": {
+      "command": "npx",
+      "args": ["@magicuidesign/cli"]
+    },
+    "sentry": {
+      "command": "npx", 
+      "args": ["@sentry/mcp-server"],
+      "env": {
+        "SENTRY_DSN": "YOUR_SENTRY_DSN_HERE"
+      }
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["@browsermcp/mcp"]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["@supabase/mcp-server-supabase"],
+      "env": {
+        "SUPABASE_URL": "YOUR_SUPABASE_URL",
+        "SUPABASE_ANON_KEY": "YOUR_SUPABASE_ANON_KEY"
+      }
+    },
+    "code-runner": {
+      "command": "npx",
+      "args": ["mcp-server-code-runner"]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-sequential-thinking"]
+    }
+  }
+}

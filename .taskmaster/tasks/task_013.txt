@@ -1,0 +1,11 @@
+# Task ID: 13
+# Title: Create advanced backtesting system
+# Status: pending
+# Dependencies: 9, 10, 11
+# Priority: high
+# Description: Build comprehensive backtesting framework with walk-forward validation
+# Details:
+Create event-driven backtesting engine, implement walk-forward analysis with rolling windows, add transaction cost and slippage modeling, build performance metrics calculation (Sharpe, Sortino, Calmar ratios), create drawdown analysis and recovery metrics, implement Monte Carlo simulation for robustness testing
+
+# Test Strategy:
+Validate backtest results against known strategies, test walk-forward prevents overfitting, verify Monte Carlo distributions

@@ -1,0 +1,432 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Set up project infrastructure and CI/CD pipeline",
+        "description": "Initialize the project repository, configure GitHub Actions, set up Railway deployment, and establish the basic project structure",
+        "details": "Create project directories for frontend/backend, configure package.json and requirements.txt, set up GitHub repository with proper branch protection, configure GitHub Actions workflow for CI/CD, integrate Railway deployment with automatic deploys on push to master, set up environment variables and secrets management",
+        "testStrategy": "Verify successful deployment to Railway, test GitHub Actions pipeline triggers, confirm environment variables are properly configured",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Setup Railway deployment pipeline",
+            "description": "Configure Railway project with automatic deployment from GitHub",
+            "details": "Connect GitHub repo to Railway, configure build settings, set up environment variables in Railway dashboard, test deployment pipeline",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 2,
+            "title": "Configure GitHub Actions CI/CD workflow",
+            "description": "Configure GitHub Actions workflow for automated CI/CD pipeline",
+            "details": "Create .github/workflows/ci-cd.yml, configure automated testing, security scanning with Trivy, deployment to Railway, health checks post-deployment",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 3,
+            "title": "Install and configure MCP development tools",
+            "description": "Install and configure all required MCP tools for development and debugging",
+            "details": "Install Railway MCP, Playwright MCP, TradingView MCP, MagicUI MCP, and other development tools. Configure mcp-config.json for Claude Desktop integration",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 4,
+            "title": "Setup project directory structure",
+            "description": "Create project directory structure for frontend, backend, and deployment files",
+            "details": "Create frontend/ (React TypeScript), backend/ (FastAPI Python), docs/, tests/, .github/workflows/, Docker files, environment configs, and README documentation",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 1
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Configure Claude MCP tools integration",
+        "description": "Configure MCP tools integration for enhanced debugging and development capabilities",
+        "details": "Install and configure all MCP tools including Railway MCP server, Playwright browser automation, TradingView chart MCP, filesystem operations, and UI component generation. Create mcp-config.json for Claude Desktop integration, test all MCP connections, document available commands and usage patterns",
+        "testStrategy": "Verify each MCP tool responds correctly, test Railway deployment through MCP, confirm TradingView chart data retrieval works",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Build FastAPI backend foundation",
+        "description": "Create FastAPI backend structure with proper authentication, routing, and middleware configuration",
+        "details": "Set up FastAPI application with proper project structure (routers, models, schemas, services), implement JWT authentication system, configure CORS middleware for frontend access, set up structured logging with proper formatters, create health check and monitoring endpoints, implement security middleware for request validation",
+        "testStrategy": "Test all API endpoints with Postman, verify authentication flow works correctly, confirm CORS allows frontend access",
+        "status": "pending",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Build React TypeScript frontend foundation",
+        "description": "Create React TypeScript frontend with Material-UI components and proper routing structure",
+        "details": "Initialize React app with TypeScript configuration, integrate Material-UI design system, set up React Router for navigation, implement Redux or Context API for state management, create base layout components (header, sidebar, footer), configure WebSocket client for real-time updates",
+        "testStrategy": "Test component rendering with React Testing Library, verify routing works correctly, confirm WebSocket connection establishes",
+        "status": "pending",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Integrate Binance exchange API",
+        "description": "Implement Binance API integration for market data and trading operations",
+        "details": "Create Binance client wrapper with proper authentication, implement WebSocket connections for real-time price feeds, build order management system for spot and futures trading, add rate limiting and error handling, create testnet/mainnet switching capability, implement market data caching layer",
+        "testStrategy": "Test with Binance testnet first, verify real-time data streaming works, confirm order placement and cancellation functions properly",
+        "status": "pending",
+        "dependencies": [
+          3
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Configure database infrastructure",
+        "description": "Set up PostgreSQL database with proper schema design and SQLAlchemy ORM integration",
+        "details": "Design database schema for trades, strategies, optimization results, and user data, implement SQLAlchemy models and migrations with Alembic, create database connection pooling, add indexes for query optimization, implement backup and recovery procedures, set up time-series data storage for market data",
+        "testStrategy": "Test database connections and queries, verify migrations work correctly, confirm data persistence and retrieval",
+        "status": "pending",
+        "dependencies": [
+          3
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Create real-time data processing engine",
+        "description": "Build real-time data processing pipeline for market data ingestion and technical indicator calculations",
+        "details": "Implement streaming data processor for tick data, calculate technical indicators (RSI, MACD, Bollinger Bands, moving averages), create candlestick aggregation for multiple timeframes, build data validation and cleaning routines, implement circular buffer for efficient memory usage, add data persistence layer for historical analysis",
+        "testStrategy": "Verify indicator calculations match TradingView values, test data streaming performance under load, confirm data integrity across timeframes",
+        "status": "pending",
+        "dependencies": [
+          5,
+          6
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Build Pine Script execution engine",
+        "description": "Implement Pine Script parser and strategy execution engine",
+        "details": "Create Pine Script language parser for basic syntax, implement strategy signal generation from Pine Script code, build backtesting engine for historical data validation, add support for custom indicators and functions, create strategy performance metrics calculation, implement strategy state management and persistence",
+        "testStrategy": "Test with sample Pine Script strategies, verify signal generation accuracy, compare backtest results with TradingView",
+        "status": "pending",
+        "dependencies": [
+          7
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Build Pine Script parser and converter",
+            "description": "Create Pine Script parser to convert Pine Script code into executable Python strategies",
+            "details": "Build Pine Script AST parser, implement strategy execution engine, support for common indicators (RSI, MACD, Bollinger Bands), entry/exit logic conversion",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 8
+          },
+          {
+            "id": 2,
+            "title": "Create strategy parameter optimization interface",
+            "description": "Implement strategy parameter extraction and optimization interface",
+            "details": "Extract optimizable parameters from Pine Script, create parameter bounds and constraints, interface with optimization engines (PSO, Bayesian, Genetic)",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 8
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Implement Bayesian optimization with Optuna",
+        "description": "Integrate Optuna for Bayesian optimization of trading strategy parameters",
+        "details": "Set up Optuna study framework for parameter optimization, implement objective functions for multiple metrics (Sharpe, return, drawdown), create parameter search space definitions, add pruning algorithms for early stopping, implement parallel trial execution, build visualization for optimization progress",
+        "testStrategy": "Run optimization on sample strategies, verify parameter improvements, test parallel execution performance",
+        "status": "pending",
+        "dependencies": [
+          8
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Create genetic algorithm optimizer",
+        "description": "Build genetic algorithm optimization framework for strategy parameter tuning",
+        "details": "Implement genetic algorithm with crossover and mutation operations, create fitness functions for trading metrics, build population management and selection mechanisms, add elitism to preserve best performers, implement adaptive mutation rates, create convergence detection algorithms",
+        "testStrategy": "Test evolution across multiple generations, verify fitness improvements, compare results with Bayesian optimization",
+        "status": "pending",
+        "dependencies": [
+          8
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Build Z-score pairs trading engine",
+        "description": "Implement Z-score calculation engine for statistical arbitrage pairs trading",
+        "details": "Build correlation matrix calculation for all trading pairs, implement cointegration testing with Augmented Dickey-Fuller test, create rolling Z-score calculation with configurable lookback windows, add spread calculation and normalization, implement mean reversion signal generation, create pairs ranking and selection algorithm",
+        "testStrategy": "Verify Z-score calculations with known data, test cointegration detection accuracy, validate signal generation timing",
+        "status": "pending",
+        "dependencies": [
+          7
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Implement dynamic hedge ratio system",
+        "description": "Create dynamic hedge ratio calculation system for market-neutral positioning",
+        "details": "Implement linear regression for hedge ratio calculation, add rolling volatility-based adjustments, create position sizing algorithms using Kelly Criterion, implement beta neutralization for market exposure, add transaction cost optimization, build rebalancing trigger mechanisms",
+        "testStrategy": "Test hedge ratios maintain market neutrality, verify position sizing follows risk limits, validate rebalancing triggers",
+        "status": "pending",
+        "dependencies": [
+          11
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Create advanced backtesting system",
+        "description": "Build comprehensive backtesting framework with walk-forward validation",
+        "details": "Create event-driven backtesting engine, implement walk-forward analysis with rolling windows, add transaction cost and slippage modeling, build performance metrics calculation (Sharpe, Sortino, Calmar ratios), create drawdown analysis and recovery metrics, implement Monte Carlo simulation for robustness testing",
+        "testStrategy": "Validate backtest results against known strategies, test walk-forward prevents overfitting, verify Monte Carlo distributions",
+        "status": "pending",
+        "dependencies": [
+          9,
+          10,
+          11
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Set up micro capital testing phase",
+        "description": "Implement micro capital forward testing pipeline with real money ($100-$1000)",
+        "details": "Create capital allocation system for micro testing, implement trade execution with minimal position sizes, build performance tracking against backtested expectations, add real-time P&L monitoring, create automatic stop mechanisms for capital protection, implement detailed trade logging and analysis",
+        "testStrategy": "Start with $100 test capital, monitor live performance correlation, verify stop-loss triggers work correctly",
+        "status": "pending",
+        "dependencies": [
+          13
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement micro capital real money testing",
+            "description": "Implement micro capital deployment system with $100-$1000 real money testing",
+            "details": "Create micro capital allocation system, implement real Binance API trading (not testnet), position sizing for micro capital, performance tracking and validation",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 14
+          },
+          {
+            "id": 2,
+            "title": "Build live vs backtest performance validation",
+            "description": "Build performance validation system to compare live results with backtested expectations",
+            "details": "Track correlation between live and backtest performance, calculate performance metrics (Sharpe, drawdown, win rate), alert system for performance deviations",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 14
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Create capital scaling pipeline",
+        "description": "Build progressive capital scaling system from micro to full deployment",
+        "details": "Create graduation criteria for capital scaling phases, implement performance validation checkpoints, build risk metrics monitoring for each phase, add capital allocation algorithms, create rollback mechanisms for underperformance, implement detailed reporting for each scaling phase",
+        "testStrategy": "Test graduation criteria triggers, verify capital scaling follows rules, confirm rollback mechanisms work",
+        "status": "pending",
+        "dependencies": [
+          14
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Build risk management system",
+        "description": "Implement comprehensive risk management system with position sizing and stop-loss automation",
+        "details": "Create position sizing calculator with 1-2% risk per trade limit, implement automatic stop-loss order placement, build daily loss limit monitoring with trading halt triggers, add portfolio heat calculation for total exposure, create maximum drawdown control mechanisms, implement circuit breakers for system protection",
+        "testStrategy": "Test position sizing stays within limits, verify stop-losses execute properly, confirm circuit breakers trigger correctly",
+        "status": "pending",
+        "dependencies": [
+          5,
+          12
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Build trading dashboard UI",
+        "description": "Create trading dashboard with real-time visualization and performance metrics",
+        "details": "Build main dashboard layout with Material-UI components, integrate TradingView charts for price visualization, create real-time P&L and position displays, add strategy performance metrics cards, implement trade history and order management tables, create responsive mobile-friendly design",
+        "testStrategy": "Test real-time data updates display correctly, verify chart rendering performance, confirm mobile responsiveness",
+        "status": "pending",
+        "dependencies": [
+          4,
+          7
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Build strategy management interface",
+        "description": "Create strategy configuration and management interface",
+        "details": "Build strategy creation wizard with parameter inputs, create Pine Script editor with syntax highlighting, add optimization configuration screens, implement strategy enable/disable controls, create parameter adjustment interface, build strategy performance comparison views",
+        "testStrategy": "Test strategy creation workflow, verify parameter changes apply correctly, confirm optimization launches properly",
+        "status": "pending",
+        "dependencies": [
+          4,
+          8,
+          9,
+          10
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Set up monitoring and observability",
+        "description": "Implement monitoring, logging, and alerting infrastructure",
+        "details": "Set up Sentry for error tracking and monitoring, implement structured logging with proper formatters and aggregation, create Prometheus metrics collection for system monitoring, build Grafana dashboards for visualization, add alert mechanisms for critical events, implement audit logging for compliance",
+        "testStrategy": "Test error capture in Sentry, verify metrics collection works, confirm alerts trigger on events",
+        "status": "pending",
+        "dependencies": [
+          3,
+          6
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Build Claude MCP debug integration",
+        "description": "Create debug integration system with Claude MCP tools",
+        "details": "Build debug API endpoints for MCP tool access, implement automated error analysis with Claude, create debug session management, add code analysis and suggestion features, implement performance profiling integration, build debug dashboard for monitoring",
+        "testStrategy": "Test MCP tools can access debug endpoints, verify error analysis provides useful suggestions, confirm debug sessions track correctly",
+        "status": "pending",
+        "dependencies": [
+          2,
+          19
+        ],
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Implement multi-exchange support",
+        "description": "Add support for multiple exchanges (Coinbase, Kraken) beyond Binance",
+        "details": "Create abstract exchange interface for common operations, implement Coinbase Pro API integration, add Kraken API support, build exchange arbitrage opportunity detection, create unified order routing system, implement cross-exchange balance management",
+        "testStrategy": "Test each exchange API connection, verify arbitrage detection works, confirm unified order routing functions",
+        "status": "pending",
+        "dependencies": [
+          5
+        ],
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Create performance reporting system",
+        "description": "Build performance analytics and reporting system",
+        "details": "Create comprehensive performance metrics calculation engine, build daily/weekly/monthly performance reports, implement strategy attribution analysis, add benchmark comparison features, create PDF report generation, build email notification system for reports",
+        "testStrategy": "Verify metric calculations are accurate, test report generation formats correctly, confirm email notifications send",
+        "status": "pending",
+        "dependencies": [
+          13,
+          14,
+          15
+        ],
+        "priority": "low",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Build comprehensive test suite",
+        "description": "Implement comprehensive testing suite with >95% code coverage",
+        "details": "Create unit tests for all backend services and utilities, build integration tests for API endpoints, add frontend component tests with React Testing Library, implement end-to-end tests with Playwright, set up continuous testing in CI/CD pipeline, create performance and load testing scenarios",
+        "testStrategy": "Monitor code coverage reports, ensure all critical paths tested, verify CI/CD blocks on test failures",
+        "status": "pending",
+        "dependencies": [
+          1,
+          3,
+          4,
+          6
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Perform security audit and hardening",
+        "description": "Conduct security audit and implement penetration testing",
+        "details": "Perform security vulnerability assessment, implement API key encryption and secure storage, add rate limiting and DDoS protection, conduct penetration testing on all endpoints, implement security headers and CORS properly, create security incident response procedures",
+        "testStrategy": "Run automated security scanners, test authentication bypass attempts, verify encrypted storage works correctly",
+        "status": "pending",
+        "dependencies": [
+          16,
+          23
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Write comprehensive documentation",
+        "description": "Create comprehensive documentation and API reference",
+        "details": "Write API documentation with OpenAPI/Swagger specs, create user guides for platform usage, document strategy development guidelines, write deployment and operations manual, create troubleshooting guides, build interactive API documentation portal",
+        "testStrategy": "Review documentation completeness, test API examples work correctly, verify deployment guides are accurate",
+        "status": "pending",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          17,
+          18,
+          22
+        ],
+        "priority": "medium",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "createdAt": "2025-08-26T00:00:00Z",
+      "projectName": "PSO+Zscore Trading Application",
+      "description": "Advanced algorithmic trading platform with Pine Script optimization and statistical arbitrage",
+      "created": "2025-08-26T23:43:40.095Z",
+      "updated": "2025-08-27T01:17:49.593Z"
+    }
+  }
+}

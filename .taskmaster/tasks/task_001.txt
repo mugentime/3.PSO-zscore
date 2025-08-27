@@ -1,0 +1,37 @@
+# Task ID: 1
+# Title: Set up project infrastructure and CI/CD pipeline
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Initialize the project repository, configure GitHub Actions, set up Railway deployment, and establish the basic project structure
+# Details:
+Create project directories for frontend/backend, configure package.json and requirements.txt, set up GitHub repository with proper branch protection, configure GitHub Actions workflow for CI/CD, integrate Railway deployment with automatic deploys on push to master, set up environment variables and secrets management
+
+# Test Strategy:
+Verify successful deployment to Railway, test GitHub Actions pipeline triggers, confirm environment variables are properly configured
+
+# Subtasks:
+## 1. Setup Railway deployment pipeline [pending]
+### Dependencies: None
+### Description: Configure Railway project with automatic deployment from GitHub
+### Details:
+Connect GitHub repo to Railway, configure build settings, set up environment variables in Railway dashboard, test deployment pipeline
+
+## 2. Configure GitHub Actions CI/CD workflow [pending]
+### Dependencies: None
+### Description: Configure GitHub Actions workflow for automated CI/CD pipeline
+### Details:
+Create .github/workflows/ci-cd.yml, configure automated testing, security scanning with Trivy, deployment to Railway, health checks post-deployment
+
+## 3. Install and configure MCP development tools [pending]
+### Dependencies: None
+### Description: Install and configure all required MCP tools for development and debugging
+### Details:
+Install Railway MCP, Playwright MCP, TradingView MCP, MagicUI MCP, and other development tools. Configure mcp-config.json for Claude Desktop integration
+
+## 4. Setup project directory structure [pending]
+### Dependencies: None
+### Description: Create project directory structure for frontend, backend, and deployment files
+### Details:
+Create frontend/ (React TypeScript), backend/ (FastAPI Python), docs/, tests/, .github/workflows/, Docker files, environment configs, and README documentation
+

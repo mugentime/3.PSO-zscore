@@ -1,0 +1,11 @@
+# Task ID: 17
+# Title: Build trading dashboard UI
+# Status: pending
+# Dependencies: 4, 7
+# Priority: medium
+# Description: Create trading dashboard with real-time visualization and performance metrics
+# Details:
+Build main dashboard layout with Material-UI components, integrate TradingView charts for price visualization, create real-time P&L and position displays, add strategy performance metrics cards, implement trade history and order management tables, create responsive mobile-friendly design
+
+# Test Strategy:
+Test real-time data updates display correctly, verify chart rendering performance, confirm mobile responsiveness

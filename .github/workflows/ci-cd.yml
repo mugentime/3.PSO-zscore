@@ -1,0 +1,224 @@
+name: PSO+Zscore Trading App CI/CD
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+env:
+  RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest-xvfb  # For headless testing
+    
+    - name: Run backend tests
+      run: |
+        cd backend
+        python -m pytest tests/ -v --cov=app --cov-report=xml --cov-report=html
+      env:
+        DATABASE_URL: sqlite:///./test.db
+        SECRET_KEY: test-secret-key
+        BINANCE_TESTNET: true
+    
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+        name: backend-coverage
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js 18
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run TypeScript checks
+      run: |
+        cd frontend
+        npm run type-check
+    
+    - name: Run ESLint
+      run: |
+        cd frontend
+        npm run lint
+    
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npm test -- --coverage --watchAll=false
+    
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm run build
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: [test-backend, test-frontend]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test-backend, test-frontend, security-scan]
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Railway CLI
+      run: |
+        curl -fsSL https://railway.app/install.sh | sh
+        echo "$HOME/.railway/bin" >> $GITHUB_PATH
+    
+    - name: Deploy to Railway
+      run: |
+        cd backend
+        railway login --token $RAILWAY_TOKEN
+        railway up
+      env:
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+    
+    - name: Health check after deployment
+      run: |
+        sleep 30  # Wait for deployment to complete
+        # Get Railway URL (this would need to be configured based on your Railway setup)
+        curl -f https://your-app.railway.app/health/ || exit 1
+    
+    - name: Claude Code Review (Optional)
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "Starting Claude-powered code review..."
+        # This would integrate with Claude API for code review
+        # Implementation depends on specific Claude integration setup
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+  performance-test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install performance testing tools
+      run: |
+        npm install -g clinic autocannon
+    
+    - name: Run performance tests
+      run: |
+        # Basic load testing
+        autocannon -c 10 -d 30 https://your-app.railway.app/health/
+        
+        # API endpoint testing
+        autocannon -c 5 -d 15 -H "Content-Type: application/json" \
+          -m POST -b '{"pairs": ["BTCUSDT", "ETHUSDT"]}' \
+          https://your-app.railway.app/api/pairs-trading/analyze
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [deploy, performance-test]
+    if: always()
+    
+    steps:
+    - name: Notify deployment status
+      run: |
+        if [ "${{ needs.deploy.result }}" == "success" ]; then
+          echo "✅ Deployment successful to Railway"
+          echo "🚀 PSO+Zscore Trading App is live"
+        else
+          echo "❌ Deployment failed"
+          echo "📧 Check logs and notify development team"
+        fi
+    
+    - name: Generate deployment report
+      run: |
+        cat << EOF > deployment-report.md
+        # Deployment Report
+        
+        **Status**: ${{ needs.deploy.result }}  
+        **Timestamp**: $(date)  
+        **Commit**: ${{ github.sha }}  
+        **Branch**: ${{ github.ref_name }}  
+        
+        ## Test Results
+        - Backend Tests: ${{ needs.test-backend.result }}
+        - Frontend Tests: ${{ needs.test-frontend.result }}
+        - Security Scan: ${{ needs.security-scan.result }}
+        - Performance Tests: ${{ needs.performance-test.result }}
+        
+        ## Deployment URL
+        https://your-app.railway.app
+        
+        ## Health Check
+        - API: https://your-app.railway.app/health/
+        - Docs: https://your-app.railway.app/docs
+        EOF
+    
+    - name: Comment PR with deployment report
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const report = fs.readFileSync('deployment-report.md', 'utf8');
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: report
+          });
